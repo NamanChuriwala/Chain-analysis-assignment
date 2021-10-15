@@ -1,16 +1,18 @@
 {% block content %}
     <h1> Bitcoin Price </h1>
     <tr>
-	    <td> Exchange 1 Buying Price {{data.0}}</td> <br>
-	    <td> Exchange 1 Selling Price {{data.1}}</td> <br>
-	    <td> Exhange 2 Buying Price {{data.2}}</td> <br>
-	    <td> Exhange 2 Selling Price {{data.3}}</td> <br>
+	    <td> Coinbase Buying Price {{btc_prices.0}}</td> <br>
+	    <td> Gemini Buying Price {{btc_prices.1}}</td> <br>
+	    <td> Coinbase Selling Price {{btc_prices.2}}</td> <br>
+	    <td> Gemini Selling Price {{btc_prices.3}}</td> <br>
     </tr>
     <h1>  Ethereum Price </h1>
     <tr>
-	    <td> Exchange 1 Buying Price {{data2.0}} </td> <br>
-	    <td> Exchange 1 Selling Price {{data2.1}} </td> <br>
-	    <td> Exchange 2 Buying Price {{data2.2}} </td> <br>
-	    <td> Exchange 2 Selling Price {{data2.3}} </td> <br>
+	    <td> Coinbase Buying Price {{eth_prices.0}} </td> <br>
+	    <td> Gemini Buying Price {{eth_prices.1}} </td> <br>
+	    <td> Coinbase Selling Price {{eth_prices.2}} </td> <br>
+	    <td> Gemini Selling Price {{eth_prices.3}} </td> <br>
     </tr>
+    <h2> We recommend buying Bitcoin from {{btc_buy_reco}} and selling Bitcoin at {{btc_sell_reco}} </h2>
+    <h2> We recommend buying Ethereum from {{eth_buy_reco}} and selling Ethereum at {{eth_sell_reco}} </h2>
 {% endblock %}

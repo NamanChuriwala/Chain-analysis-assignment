@@ -18,6 +18,7 @@ pluggy==1.0.0
 py==1.10.0
 pycryptodome==3.11.0
 pyparsing==2.4.7
+python-dotenv==0.19.1
 requests==2.26.0
 six==1.16.0
 toml==0.10.2

@@ -10,70 +10,72 @@ def home():
 
 @app.route('/prices/')
 def display_prices():
-    p1 = coinbase_prices()
-    p2 = gemini_prices()
-    #print(p1, p2)
-    data = [p2[0], p2[1], p1[0]['amount'], p1[1]['amount']]
-    data2 = [p2[2], p2[3], p1[2]['amount'], p1[3]['amount']]
-    return render_template('prices.html', data=data, data2=data2)
-    return p1, p2
-    return "Prices"
+    coinbase_prices = get_coinbase_prices()
+    gemini_prices = get_gemini_prices() 
+    
+    if not coinbase_prices or not gemini_prices:
+        return render_template('500.html'), 500 
 
-def coinbase_prices():
+    coinbase_btc_buy_price, coinbase_btc_sell_price, coinbase_eth_buy_price, coinbase_eth_sell_price = coinbase_prices
+    gemini_btc_buy_price, gemini_btc_sell_price, gemini_eth_buy_price, gemini_eth_sell_price = gemini_prices
 
-	#client = Client('qgtZ6JlI71SfrPei', 'D45Zc88V8xIkWnx7Di6PGMpkFF163JMf')
+    btc_prices = [coinbase_btc_buy_price, gemini_btc_buy_price, coinbase_btc_sell_price, gemini_btc_sell_price]
+    eth_prices = [coinbase_eth_buy_price, gemini_eth_buy_price, coinbase_eth_sell_price, gemini_eth_sell_price]
+
+    if coinbase_btc_buy_price > gemini_btc_buy_price:
+        btc_buy_reco = "Gemini"
+    else:
+        btc_buy_reco = "Coinbase"
+
+    if coinbase_btc_sell_price > gemini_btc_sell_price:
+        btc_sell_reco = "Coinbase"
+    else:
+        btc_sell_reco = "Gemini"
+
+    if coinbase_eth_buy_price > gemini_eth_buy_price:
+        eth_buy_reco = "Gemini"
+    else:
+        eth_buy_reco = "Coinbase"
+
+    if coinbase_eth_sell_price > gemini_eth_sell_price:
+        eth_sell_reco = "Coinbase"
+    else:
+        eth_sell_reco = "Gemini"
+
+    return render_template('prices.html', eth_prices=eth_prices,
+                           btc_prices=btc_prices, btc_buy_reco=btc_buy_reco,
+                           btc_sell_reco=btc_sell_reco,
+                           eth_buy_reco=eth_buy_reco, eth_sell_reco=eth_sell_reco)
+
+def get_coinbase_prices():
         coinbase_api_key = app.config['coinbase_api_key']
         coinbase_secret_key = app.config['coinbase_secret_key']
-        client = Client(coinbase_api_key, coinbase_secret_key)
 
-	bitcoin_buy_price = client.get_buy_price(currency_pair = 'BTC-USD')
-	bitcoin_sell_price = client.get_sell_price(currency_pair = 'BTC-USD')
+        try:
+            client = Client(coinbase_api_key, coinbase_secret_key)
 
-	eth_buy_price = client.get_buy_price(currency_pair = 'ETH-USD')
-	eth_sell_price = client.get_sell_price(currency_pair = 'ETH-USD')
+            bitcoin_buy_price = client.get_buy_price(currency_pair = 'BTC-USD')['amount']
+            bitcoin_sell_price = client.get_sell_price(currency_pair = 'BTC-USD')['amount']
 
-	return bitcoin_buy_price, bitcoin_sell_price, eth_buy_price, eth_sell_price
+            eth_buy_price = client.get_buy_price(currency_pair = 'ETH-USD')['amount']
+            eth_sell_price = client.get_sell_price(currency_pair = 'ETH-USD')['amount']
+        except:
+            return []
 
-def gemini_prices():
-	base_url = "https://api.gemini.com/v1"
-	response1 = requests.get(base_url + "/pubticker/btcusd")
-	response2 = requests.get(base_url + "/pubticker/ethusd")
+        return bitcoin_buy_price, bitcoin_sell_price, eth_buy_price, eth_sell_price
+    
+def get_gemini_prices():
+        base_url = "https://api.gemini.com/v1"
+        response1 = requests.get(base_url + "/pubticker/btcusd")
+        response2 = requests.get(base_url + "/pubticker/ethusd")
+        
+        if response1.status_code != 200 or response2.status_code != 200:
+            return []
 
-	btc_data = response1.json()
-	eth_data = response2.json()
+        btc_data = response1.json()
+        eth_data = response2.json()
 
-	return btc_data['ask'], btc_data['bid'], eth_data['ask'], eth_data['bid']
-
-
-# def get_prices():
-# 	params = {'access_key': 'd98674ec17a4b1a1b2ee770174c25dcb'}
-# 	r = requests.get("http://api.coinlayer.com/live", params=params)
-# 	data = r.json()
-
-class EndpointAction(object):
-
-    def __init__(self, action):
-        self.action = action
-        self.response = Response(status=200, headers={})
-
-    def __call__(self, *args):
-        return self.action()
-        #return self.response
-
-
-class FlaskAppWrapper(object):
-    #app = None
-
-    def __init__(self, app):
-        self.app = app
-        #self.app = Flask(name)
-
-    def run(self):
-        self.app.run()
-
-    def add_endpoint(self, endpoint=None, endpoint_name=None, handler=None):
-        self.app.add_url_rule(endpoint, endpoint_name, EndpointAction(handler))
-
-#a = FlaskAppWrapper(app)
-#a.add_endpoint(endpoint='/prices', endpoint_name='prices', handler=display_prices)
-#a.run()
+        if btc_data.get('result', None) or eth_data.get('result', None):
+            return []
+        
+        return btc_data['ask'], btc_data['bid'], eth_data['ask'], eth_data['bid']
