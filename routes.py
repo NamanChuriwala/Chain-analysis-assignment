@@ -12,7 +12,10 @@ def home():
 def display_prices():
     p1 = coinbase_prices()
     p2 = gemini_prices()
-    return render_template('prices.html', data=p1)
+    #print(p1, p2)
+    data = [p2[0], p2[1], p1[0]['amount'], p1[1]['amount']]
+    data2 = [p2[2], p2[3], p1[2]['amount'], p1[3]['amount']]
+    return render_template('prices.html', data=data, data2=data2)
     return p1, p2
     return "Prices"
 

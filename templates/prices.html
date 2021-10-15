@@ -1,12 +1,16 @@
 {% block content %}
     <h1> Bitcoin Price </h1>
-    {% for item in data %}
     <tr>
-	<td>{{data.0}}</td>
-	<td>{{data.1}}</td>
- 	<td>{{data.2}}</td>
-	<td>{{data.3}}</td>
+	    <td> Exchange 1 Buying Price {{data.0}}</td> <br>
+	    <td> Exchange 1 Selling Price {{data.1}}</td> <br>
+	    <td> Exhange 2 Buying Price {{data.2}}</td> <br>
+	    <td> Exhange 2 Selling Price {{data.3}}</td> <br>
     </tr>
-    {% endfor %}
     <h1>  Ethereum Price </h1>
+    <tr>
+	    <td> Exchange 1 Buying Price {{data2.0}} </td> <br>
+	    <td> Exchange 1 Selling Price {{data2.1}} </td> <br>
+	    <td> Exchange 2 Buying Price {{data2.2}} </td> <br>
+	    <td> Exchange 2 Selling Price {{data2.3}} </td> <br>
+    </tr>
 {% endblock %}
