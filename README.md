@@ -7,8 +7,8 @@
 3. `pip install -r requirements.txt`
 
 ## Steps to Run
-1. `$> python app.py`
-2. `Go to 0.0.0.0:5000/prices`
+1. `$> python3 app.py`
+2. `Go to 127.0.0.1:5000/prices`
 
 ## Live version
 1. The live version can be found at https://emerald-result-329102.uc.r.appspot.com/prices/
