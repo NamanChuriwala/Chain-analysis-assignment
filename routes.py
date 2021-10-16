@@ -6,10 +6,15 @@ from coinbase.wallet.client import Client
 
 @app.route('/')
 def home():
+    """Test Route"""
     return "Home"
 
 @app.route('/prices/')
 def display_prices():
+    """Function to display prices obtained from
+       two exchanges and recommend exchange based
+       on prices obtained"""
+
     coinbase_prices = get_coinbase_prices()
     gemini_prices = get_gemini_prices() 
     
@@ -48,6 +53,8 @@ def display_prices():
                            eth_buy_reco=eth_buy_reco, eth_sell_reco=eth_sell_reco)
 
 def get_coinbase_prices():
+        """Fetch currency prices from coinbase exchange"""
+
         coinbase_api_key = app.config['coinbase_api_key']
         coinbase_secret_key = app.config['coinbase_secret_key']
 
@@ -65,6 +72,8 @@ def get_coinbase_prices():
         return bitcoin_buy_price, bitcoin_sell_price, eth_buy_price, eth_sell_price
     
 def get_gemini_prices():
+        """Fetch currency prices from Gemini exchange"""
+
         base_url = "https://api.gemini.com/v1"
         response1 = requests.get(base_url + "/pubticker/btcusd")
         response2 = requests.get(base_url + "/pubticker/ethusd")
