@@ -1,6 +1,6 @@
 .
-|──────app/
-| |────app.yaml
+-|──────app/
+-| |────app.yaml
 | |────app.py
 | |────main.py
 | |────routes.py
