@@ -24,7 +24,7 @@
     
 3. If you have to scale your solution to 100 users/second traffic what changes would you make, if any?  
     Since Flask is supposed to be used for development and not production, I would use a WSGI to talk to a reverse proxy or load
-    balance such as NGINX to be able to handle concurrent requests. Also, I have deployed the webpage using serverless on Google Cloud
+    balancer such as NGINX to be able to handle concurrent requests. Also, I have deployed the webpage using serverless on Google Cloud
     which automatically scales horizontally (adds servers upon increased load), which should take care of horizontal scaling.
     
 4. What are some other enhancements you would have made, if you had more time to do this implementation  
