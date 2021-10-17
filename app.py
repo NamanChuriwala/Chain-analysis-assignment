@@ -16,8 +16,3 @@ def create_app():
     with app.app_context():
         import routes
     return app
-
-app = create_app()
-
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=True, port=5000)
