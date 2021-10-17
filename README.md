@@ -7,7 +7,7 @@
 3. `pip install -r requirements.txt`
 
 ## Steps to Run
-1. `$> python3 app.py`
+1. `$> python3 main.py`
 2. `Run at localhost:5000/prices` or `Go to 127.0.0.1:5000/prices`
 
 ## Live version
