@@ -1,0 +1,40 @@
+.bitcoin {
+	margin: auto;
+	width: 60%;
+	border: 5px;
+	padding: 10px;
+}
+
+#text {
+	text-align: center;
+	display: block;
+}
+
+#title{
+	margin:20px;
+}
+
+#heading {
+	text-align: center;
+	display: block;
+}
+
+#reco {
+	text-align: center;
+	display: block;
+	margin:  30px;
+}
+
+th {
+  height: 60px;
+  width:120px;
+}
+
+tr {
+  height: 40px;
+  width:120px;
+}
+
+#table {
+	width: 50%;
+}

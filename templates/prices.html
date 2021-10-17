@@ -1,18 +1,69 @@
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="{{ url_for('static',filename='style.css')}}">
+
 {% block content %}
-    <h1> Bitcoin Price </h1>
-    <tr>
-	    <td> Coinbase Buying Price {{btc_prices.0}}</td> <br>
-	    <td> Gemini Buying Price {{btc_prices.1}}</td> <br>
-	    <td> Coinbase Selling Price {{btc_prices.2}}</td> <br>
-	    <td> Gemini Selling Price {{btc_prices.3}}</td> <br>
-    </tr>
-    <h1>  Ethereum Price </h1>
-    <tr>
-	    <td> Coinbase Buying Price {{eth_prices.0}} </td> <br>
-	    <td> Gemini Buying Price {{eth_prices.1}} </td> <br>
-	    <td> Coinbase Selling Price {{eth_prices.2}} </td> <br>
-	    <td> Gemini Selling Price {{eth_prices.3}} </td> <br>
-    </tr>
-    <h2> We recommend buying Bitcoin from {{btc_buy_reco}} and selling Bitcoin at {{btc_sell_reco}} </h2>
-    <h2> We recommend buying Ethereum from {{eth_buy_reco}} and selling Ethereum at {{eth_sell_reco}} </h2>
+<div class="container">
+    <div class="row" id="heading">
+	    <h1>Crypto Recommendation Page</h1>
+    </div>
+    <div class="row" id="title">
+    	<div class="col-sm-6 bitcoin">
+		<div class="row" id="text">
+		<h2>Bitcoin Prices</h2>
+	</div>
+    <table id="table" class = "col-sm-5" align="center" border="1px">
+	<thead class="thead-light">
+        <tr>
+            <th class="head"> </th>
+            <th class="head text-center">Coinbase</th>
+	    <th class="head text-center">Gemini</th>
+        </tr>
+	</thead>
+	<tbody>
+            <tr>
+	    	<td class="text-center">Buying</td>
+		<td class="text-center">{{btc_prices.0}}</td>
+		<td class="text-center">{{btc_prices.1}}</td>
+	    </tr>
+	     <tr>
+		<td class="text-center">Selling</td>
+		<td class="text-center">{{btc_prices.2}}</td>
+		<td class="text-center">{{btc_prices.3}}</td>
+	    </tr>
+    	</tbody>
+    </table>
+    </div>
+	<div class="col-sm-6 bitcoin">
+	<div class="row" id="text">
+		<h2>Ethereum Prices</h2>
+	</div>
+    	<table id="table" class = "col-sm-5" align="center" border="1px">
+	<thead class="thead-light">
+        <tr>
+            <th class="head"> </th>
+            <th class="head text-center">Coinbase</th>
+	    <th class="head text-center">Gemini</th>
+        </tr>
+	</thead>
+	<tbody>
+            <tr>
+	    	<td class="text-center">Buying</td>
+		<td class="text-center">{{eth_prices.0}}</td>
+		<td class="text-center">{{eth_prices.1}}</td>
+	    </tr>
+	     <tr>
+	    	<td class="text-center">Selling</td>
+		<td class="text-center">{{btc_prices.2}}</td>
+		<td class="text-center">{{btc_prices.3}}</td>
+	    </tr>
+    	</tbody>
+    </table>
+    </div>
+    </div>
+
+    <div class="row" id="reco">
+	    <h3> We recommend buying Bitcoin from <span class="text-danger">{{btc_buy_reco}}</span> and selling Bitcoin at <span class="text-danger">{{btc_sell_reco}}</span> </h3>
+	    <h3>We recommend buying Ethereum from <span class="text-danger"> {{eth_buy_reco}} </span> and selling Ethereum at <span class="text-danger">{{eth_sell_reco}}</span> </h3>
+    </div>
+</div>
 {% endblock %}
